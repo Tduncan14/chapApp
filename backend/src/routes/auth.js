@@ -5,12 +5,14 @@ const { Signup, Login, Logout } = require('../controllers/authController.js');
 const router = express.Router();
 
 
-router.get("/signup", Signup)
+router.post("/signup", Signup)
 
 
-router.get("/login", Login)
+router.post("/login", Login)
 
-router.get("/logout", Logout)
+router.post("/logout", Logout)
+
+router.put("/update-profile", protectRoute, updateProfile)
 
 
 module.exports = router
