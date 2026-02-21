@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const User = require('../models/userModels');
 const bcrypt = require('bcryptjs');
-const { generateToken } = require('../lib/generateToken');
-
-
+const generateToken = require('../lib/generateToken');
 
 
 const Signup = async (req, res) => {
@@ -121,4 +119,10 @@ const Logout = async (req, res) => {
 
 }
 
-module.exports = { Signup, Login, Logout }
+
+const updateProfile = async (req, res) => {
+
+
+}
+
+module.exports = { Signup, Login, Logout, updateProfile }
