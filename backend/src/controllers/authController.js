@@ -3,6 +3,7 @@ const express = require('express');
 const User = require('../models/userModels');
 const bcrypt = require('bcryptjs');
 const generateToken = require('../lib/generateToken');
+const cloudinary = require('../lib/cloudinary');
 
 
 const Signup = async (req, res) => {
@@ -121,6 +122,32 @@ const Logout = async (req, res) => {
 
 
 const updateProfile = async (req, res) => {
+
+    try {
+        const { profilePic } = req.body;
+        const userID = req.user._id
+
+        if (!profilePic) {
+            return res.status(400).json({ message: "Profile pic is required" })
+        }
+
+        const uploadResponse = await cloudinary.uploader.upload(profilePic)
+        const updatedUser = await User.findByIdAndUpdate(userID, { profilePic: uploadResponse.secure_url }, { new: true })
+
+
+
+        res.status(200).json(updatedUser)
+    }
+
+
+    catch (error) {
+
+        console.log('error in updateProfile'),
+            res.status(500).json({ message: "Internal server error" })
+
+    }
+
+
 
 
 }
